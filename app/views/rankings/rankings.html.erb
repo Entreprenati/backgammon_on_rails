@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rankings</title>
+    <link rel="shortcut icon" href="/images/smile.jpg" />
+    <link rel="stylesheet" type="text/css" href="rankings.css">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+</head>
+<body>
+
+<div id="page_wrapper">
+
+<div id="page_inner_wrapper">
+
+<!-- Insert the home button -->
+
+<form action="/wall_request" method="GET" id="home">
+  <input type="hidden" name="home" id="home">
+  <button type="submit" id="home_submit">Home</button>
+</form>
+
+<table>
+
+  <tr>
+    <th>Player</th>
+    <th>Games</th>
+    <th>Wins</th>
+    <th>Win %</th>
+  </tr>
+
+  <% @rankings_hash.each do |k, v| %>
+    <tr>
+      <td><%=k%></td>
+      <td class="data"><%=v[0]%></td>
+      <td class="data"><%=v[1]%></td>
+      <td class="data"><%=v[2]%></td>
+    </tr>
+  <%end%>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>

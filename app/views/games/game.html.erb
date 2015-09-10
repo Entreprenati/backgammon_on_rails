@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Game</title>
+  <link rel="shortcut icon" href="/images/smile.jpg" />
+  <link rel="stylesheet" type="text/css" href="backgammon.css">  
+</head>
+
+<body>
+
+<span id="game_id" style="display: none"><%= @game_id %></span>
+
+<span id="current_user_color" style="display: none"><%= @current_user_color %></span>
+
+<span id="turn_status" style="display: none"><%= @turn_status %></span>
+
+
+<!-- Embed a hidden form to submit a resume request for a simultaneous game -->  
+
+<form style="display: none" action="/resume_simultaneous_game" method="GET" id="resume_simultaneous_game">
+  <input type="hidden" id="resume_game_id" name="resume_game_id"/>
+</form>
+
+
+<!-- Create the board -->
+
+<div id="boardWrapper">
+
+  <div id="topEdge"></div>
+
+  <div id="leftEdge">
+    <div id="homeWrapper">
+      <div id="homeForWhite"></div>
+      <div id="homeForDice"></div>
+      <div id="homeForBlack" class="blackHome"></div>
+    </div>
+  </div>  
+
+  <div id="leftSide">
+
+    <div class="quad topLeftSide">
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri23" class="midTri midTriDown oddTri">
+          <div id="positioner23" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>
+            <div class="chipHolder">
+              <div draggable='true' id="chip15" class="chip blackChip"></div>
+              <div draggable='true' id="chip16" class="chip blackChip"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri22" class="midTri midTriDown evenTri">
+          <div id="positioner22" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>          
+            <div class="chipHolder"></div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri21" class="midTri midTriDown oddTri">
+          <div id="positioner21" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>          
+            <div class="chipHolder"></div>
+          </div> 
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri20" class="midTri midTriDown evenTri">
+          <div id="positioner20" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>          
+            <div class="chipHolder"></div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri19" class="midTri midTriDown oddTri">
+          <div id="positioner19" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>      
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri18" class="midTri midTriDown evenTri">          
+          <div id="positioner18" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder">
+              <div draggable='true' id="chip10" class="chip whiteChip"></div>
+              <div draggable='true' id="chip11" class="chip whiteChip"></div>
+              <div draggable='true' id="chip12" class="chip whiteChip"></div>
+              <div draggable='true' id="chip13" class="chip whiteChip"></div>
+              <div draggable='true' id="chip14" class="chip whiteChip"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+    </div>
+
+    <div class="quad bottomLeftSide">
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri0" class="midTri midTriUp evenTri">
+          <div id="positioner0" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder">
+              <div draggable='true' id="chip0" class="chip whiteChip"></div>
+              <div draggable='true' id="chip1" class="chip whiteChip"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri1" class="midTri midTriUp oddTri">
+          <div id="positioner1" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri2" class="midTri midTriUp evenTri">
+          <div id="positioner2" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri3" class="midTri midTriUp oddTri">           
+          <div id="positioner3" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri4" class="midTri midTriUp evenTri">          
+          <div id="positioner4" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div> 
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri5" class="midTri midTriUp oddTri">
+          <div id="positioner5" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder">
+              <div draggable='true' id="chip25" class="chip blackChip"></div>
+              <div draggable='true' id="chip26" class="chip blackChip"></div>
+              <div draggable='true' id="chip27" class="chip blackChip"></div>
+              <div draggable='true' id="chip28" class="chip blackChip"></div>
+              <div draggable='true' id="chip29" class="chip blackChip"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>                  
+
+    </div>  
+
+  </div>  
+
+  <div id="midBar">
+    <div id="barForBlack"></div>
+    <div class="dice">
+      <div id="die0"><span></span></div>
+      <div id="die1"><span></span></div>
+    </div>
+    <div id="barForWhite"></div>
+  </div>  
+
+  <div id="rightSide">
+
+    <div class="quad topRightSide">
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri17" class="midTri midTriDown oddTri">
+          <div id="positioner17" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri16" class="midTri midTriDown evenTri">          
+          <div id="positioner16" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>         
+            <div class="chipHolder">
+              <div draggable='true' id="chip7" class="chip whiteChip"></div>
+              <div draggable='true' id="chip8" class="chip whiteChip"></div>
+              <div draggable='true' id="chip9" class="chip whiteChip"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri15" class="midTri midTriDown oddTri">
+          <div id="positioner15" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri14" class="midTri midTriDown evenTri">
+          <div id="positioner14" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>          
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri13" class="midTri midTriDown oddTri">
+          <div id="positioner13" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div>
+          </div>          
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+      <div class="triDownWrap">
+        <div class="leftTriDown"></div>
+        <div id="midTri12" class="midTri midTriDown evenTri">          
+          <div id="positioner12" class="positioner positionerTop">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder">
+              <div draggable='true' id="chip17" class="chip blackChip"></div>
+              <div draggable='true' id="chip18" class="chip blackChip"></div>
+              <div draggable='true' id="chip19" class="chip blackChip"></div>
+              <div draggable='true' id="chip20" class="chip blackChip"></div>
+              <div draggable='true' id="chip21" class="chip blackChip"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rightTriDown"></div>
+      </div>
+
+    </div>
+
+    <div class="quad bottomRightSide">
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri6" class="midTri midTriUp evenTri">
+          <div id="positioner6" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder"></div> 
+          </div>
+        </div> 
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri7" class="midTri midTriUp oddTri">
+          <div id="positioner7" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>        
+            <div class="chipHolder">
+              <div draggable='true' id="chip22" class="chip blackChip"></div>
+              <div draggable='true' id="chip23" class="chip blackChip"></div>
+              <div draggable='true' id="chip24" class="chip blackChip"></div>
+            </div>
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri8" class="midTri midTriUp evenTri">
+          <div id="positioner8" class="positioner positionerBottom"> 
+            <div class="excessChipHolder"></div>          
+            <div class="chipHolder"></div> 
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri9" class="midTri midTriUp oddTri">
+          <div id="positioner9" class="positioner positionerBottom"> 
+            <div class="excessChipHolder"></div>                 
+            <div class="chipHolder"></div>              
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri10" class="midTri midTriUp evenTri">
+          <div id="positioner10" class="positioner positionerBottom"> 
+            <div class="excessChipHolder"></div>                 
+            <div class="chipHolder"></div>    
+          </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+      <div class="triUpWrap">
+        <div class="leftTriUp"></div>
+        <div id="midTri11" class="midTri midTriUp oddTri">
+          <div id="positioner11" class="positioner positionerBottom">
+            <div class="excessChipHolder"></div>                  
+            <div class="chipHolder">
+              <div draggable='true' id="chip2" class="chip whiteChip"></div>
+              <div draggable='true' id="chip3" class="chip whiteChip"></div>
+              <div draggable='true' id="chip4" class="chip whiteChip"></div>
+              <div draggable='true' id="chip5" class="chip whiteChip"></div>
+              <div draggable='true' id="chip6" class="chip whiteChip"></div>
+            </div>
+        </div>
+        </div>
+        <div class="rightTriUp"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="rightEdge">
+    <div id="rightEdgeMessage"><span>D<br>O<br>N<br>E<br></span></div>
+  </div>
+
+  <div id="bottomEdge"></div>
+
+</div>
+
+<audio id='yourTurn' src='images/yourTurn.m4a'></audio>
+
+<!-- <div class="master">
+  <div class="dot tl"></div>  
+  <div class="dot tm"></div>
+  <div class="dot tr"></div>
+  <div class="dot ml"></div>
+  <div class="dot mm"></div>
+  <div class="dot mr"></div>
+  <div class="dot bl"></div>  
+  <div class="dot bm"></div>
+  <div class="dot br"></div>
+</div> -->
+
+<!-- <div class="die one"></div>
+<div class="die two"></div>
+<div class="die three"></div>
+<div class="die four"></div>
+<div class="die five"></div>
+<div class="die six"></div> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
+<script src="backgammon.js"></script>
+
+</body>
+</html>

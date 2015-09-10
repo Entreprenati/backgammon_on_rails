@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wall</title>
+    <link rel="stylesheet" type="text/css" href="wall.css"> 
+    <link rel="shortcut icon" href="/images/smile.jpg" /> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+</head>
+<body>
+
+<div class="left_col"></div>
+
+<div class="right_col"></div>
+
+<div id="page_wrapper">
+
+
+<!-- Store the user's username and show it as the page heading -->
+
+<h1 style="display: none" id="current_user"><%=@username%></h1>
+<div id="wall_heading"><%=@username%></div>
+
+
+<!-- Show avitar -->
+
+  <div class="avatar_div">
+
+    <li class="avatar_thumb"><%= image_tag @record.avatar.url (:thumb) %></li>
+    <li class="avatar_medium"><%= image_tag @record.avatar.url (:medium) %></li>
+ 
+    <%= form_for @user, url: '/avatar_update', html: { multipart: true } do |form| %>
+      <li style="display: none"><%= form.file_field :avatar %></li>
+      <label for="user_avatar" class="browse">Browse</label>
+      <button type="submit" id="avatar_upload">Upload</button>
+    <% end %>
+
+  </div>
+
+
+<!-- Insert the logout button -->
+
+<form action="/logout" method="POST" id="logout">
+  <input type="hidden" name="logout" value="logout" id="logout">
+  <button type="submit" id="logout_submit">Logout</button>
+</form>
+
+<!-- Insert a button to request rankings -->
+
+<form action="/rankings_request" method="GET" id="rankings_request">
+  <input type="hidden" name="rankings_request" id="rankings_request">
+  <button type="submit" id="rankings_request_submit">Rankings</button>
+</form>
+
+<!-- Show a list of the user's foes and buttons saying "Challenge" or "Move" or "Wait" -->
+
+<div id='games'>
+  <h1 id="foe_games_heading">Games: </h1>
+  <ul>
+    <% @foe_games.each do |x| %>
+      <div>
+        <li><%= x[0] %></li>
+        <% z = "Challenge" if x[1] == 0 %>
+        <% z = "Resume" if x[1] == 1 %>
+        <% z = "Waiting" if x[1] == 2 %>
+        <div class="<%= z.downcase %>" id="<%= x[0] %>" ><%= z %></div>
+      </div>
+    <% end %>
+  </ul>
+</div>
+
+
+<!-- Embed a hidden form to submit a challenge election -->  
+
+<form style="display: none" action="/challenge" method="POST" id="challenge">
+  <input type="hidden" id="foe_challenged_username" name="foe_challenged_username"/>
+</form>
+
+
+<!-- Embed a hidden form to submit a resume election -->  
+
+<form style="display: none" action="/resume" method="GET" id="resume">
+  <input type="hidden" id="foe_to_move_against_username" name="foe_to_move_against_username"/>
+</form>
+
+
+<!-- Show a list of the pending foe requests to the user and buttons saying "Accept" or "Reject" -->
+
+<h1 id="foe_response_heading">Pending foe requests to you: </h1>
+
+  <ul>
+    <% if @foe_requests_to_user.present? %>
+      <% @foe_requests_to_user.each do |f| %>
+        <div> 
+          <li><%= f %></li> 
+          <div class="accept" id="<%= f %>" >Accept</div> 
+          <div class="reject" id="<%= f %>" >Reject</div> 
+        </div>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% if @foe_requests_to_user.blank? %>
+    <ul>
+      <li id="no_pending_foe_requests_to_you_notice">None</li>
+    </ul>
+  <% end %>
+
+
+<!-- Embed a hidden form to submit the acceptance or rejection of a pending foe request -->  
+
+<form style="display: none" action="/foe_response" method="POST" id="foe_response">
+  <input type="hidden" id="foe_requester_username" name="foe_requester_username"/>
+  <input type="hidden" id="response" name="response"/>
+</form>
+
+
+<!-- Embed hidden form to submit a request for an updated wall --> 
+
+<form style="display: none" action="/wall_request" method="GET" id="wall_request">
+  <input type="hidden" id="entrant" name="entrant"/>
+</form>
+
+
+<!-- Show a list of the pending foe requests from the user -->
+
+<h1 id="foe_requests_heading">Pending foe requests from you: </h1>
+
+  <ul>
+    <% if @foe_requests_from_user.present? %>
+      <% @foe_requests_from_user.each do |f| %>
+        <div> 
+          <li><%= f %></li> 
+        </div>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% if @foe_requests_from_user.blank? %>
+    <ul>
+      <li id="no_pending_foe_requests_notice">None</li>
+    </ul>
+  <% end %>
+
+
+<!-- Show a form to submit a foe request --> 
+
+<form id="foe_request" action="/foe_request" method="POST">
+
+  <h1 id="foe_request_heading">Foe Request:</h1> 
+
+  <p id="new_foe_request">Username of desired new foe:
+    <div id="submit_box">
+      <input type="text" name="foe_responder_username" id="foe_responder_username">
+      <button type="submit" id="submit">Submit</button>
+      <span id="foe_request_error_msg"></span>
+    </div>
+  </p>
+
+</form>
+
+</div>
+
+
+<script>
+
+$(document).ready(function() {
+
+
+  // Use proper size avatar
+
+  if ($(window).width() > 800) {
+    $(".avatar_thumb").css("display", "none");
+    $(".avatar_medium").css("display", 'inline-block');
+  }
+  else {
+    $(".avatar_medium").css("display", "none");
+    $(".avatar_thumb").css("display", 'inline-block');
+  }
+
+  $(window).resize(function() {
+    if ($(window).width() > 800) {
+      $(".avatar_thumb").css("display", "none");
+      $(".avatar_medium").css("display", 'inline-block');
+    }
+    else {
+      $(".avatar_medium").css("display", "none");
+      $(".avatar_thumb").css("display", 'inline-block');
+    }
+  });
+
+
+  // Process a foe acceptance or rejection
+
+  $('.accept, .reject').click(function() {
+
+    var foe_requester = $(this).attr('id');
+    $("#foe_requester_username").val(foe_requester);
+    if( $(this).hasClass('accept') ) {$("#response").val('1');
+    } else {$("#response").val('2');
+      }
+
+    var response = $('#foe_response').serialize();
+
+    $.ajax({
+      type: 'POST',
+      url: $('#foe_response').attr('action'),
+      data: response,
+
+      success: function (result) {
+        $('#foe_response_heading').text(result).effect( "pulsate", {times:2}, 2000 );
+        setTimeout(function() {
+          $("#entrant").val('update');
+          $("#wall_request").submit();           
+        }, 2500);
+      }
+
+    }); // End of acceptance or rejection AJAX        
+
+  }); // End of acceptance or rejection processing
+
+
+  // Process a foe request
+
+  var form_foe_request = $('#foe_request');
+
+  $(form_foe_request).submit(function(event) {
+
+    event.preventDefault();
+
+    var current_user = $('#current_user').text();
+
+    var foe_responder_username = $('#foe_responder_username').val();
+
+    console.log("Current User: " + current_user);
+    console.log("Foe requested: " + foe_responder_username);
+
+    var data_to_send = $(form_foe_request).serialize();
+
+    if ( foe_responder_username === "" ) {
+      $('#foe_request_error_msg').text("Blank?").effect( "pulsate", {times:2}, 2000 );
+      $('#foe_request_error_msg').fadeOut();
+    }
+    else if( foe_responder_username === current_user ) {
+      $('#foe_request_error_msg').text("Yourself?").effect( "pulsate", {times:2}, 2000 );
+      $('#foe_request_error_msg').fadeOut();
+      }
+      else {
+
+      // Submit the foe request form using AJAX
+
+        $.ajax({
+          type: 'POST',
+          url: $(form_foe_request).attr('action'),
+          data: data_to_send,
+
+          success: function (result) {
+            console.log("This is the result sent back to ajax:" + result);
+
+            if( result[0] === "N" ) { 
+              $('#foe_request_heading').text(result).effect( "pulsate", {times:2}, 2000 );
+              $('#foe_responder_username').val('');
+              $('#foe_request_error_msg').fadeOut();
+              setTimeout(function() {
+                $('#foe_request_heading').fadeOut();
+                $('#foe_request_heading').text('Foe Request').fadeIn();
+              }, 2500);
+
+            } else {
+
+                $('#foe_request_heading').text(result).effect( "pulsate", {times:2}, 2000 );
+              
+                // setTimeout(function() {
+                //   $('#foe_request_heading').fadeOut();
+                //   $('#foe_request_heading').text('Foe Request').fadeIn();
+                //   $('#foe_responder_username').val('');
+                // }, 2500);
+
+                setTimeout(function() {
+                  $("#entrant").val('update');
+                  $("#wall_request").submit();           
+                }, 2500);
+
+              } // End of last else (of foe request AJAX)
+          } // End of sucesss function of foe request AJAX
+        }); // End of foe request AJAX
+      } // End of first else (right before foe request AJAX ) 
+  }); // End of foe request processing   
+
+
+  // Process a challenge submission
+
+  $('.challenge').click(function() {
+
+    var foe_challenged = $(this).attr('id');
+    console.log('Foe callenged is: ' + foe_challenged);
+    $("#foe_challenged_username").val(foe_challenged);
+
+    $('#foe_games_heading').text("Challenge Submitted!").effect( "pulsate", {times:2}, 2000 );
+    setTimeout(function() {
+      $("#challenge").submit();    
+    }, 2500);
+
+  }); // End of challenge processing
+
+
+  // Process a move submission
+
+  $('.resume').click(function() {
+
+    var foe_to_move_against_username = $(this).attr('id');
+    $("#foe_to_move_against_username").val(foe_to_move_against_username);
+
+    $('#foe_games_heading').text("Game Resumption Submitted!").effect( "pulsate", {times:2}, 2000 );
+    setTimeout(function() {
+      $("#resume").submit();    
+    }, 2500);
+
+  }); // End of move processing
+
+}); // End of doc ready function
+</script>
+
+</body>
+</html>

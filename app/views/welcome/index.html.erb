@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+  <link rel="shortcut icon" href="/images/smile.jpg" />  
+  <link rel="stylesheet" type="text/css" href="log_in.css">  
+  <link href='http://fonts.googleapis.com/css?family=Tillana:400,800' rel='stylesheet' type='text/css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+</head>
+<body>
+
+<div id="page_wrapper">
+
+<div id="page_inner_wrapper">
+
+<form id="log_in" action="/log_in" method="GET">
+
+  <% if flash[:alert] %>
+    <div class="alert"><%=flash[:alert]%></div>
+  <% end %>
+
+  <p id="log_in_heading">Member Login</p> 
+
+  <p>Email:
+    <input type="text" name="email" id="log_in_email">
+  </p>
+
+  <p>Password:
+    <input type="password" name="password" id="log_in_password">
+  </p>
+   
+  <button type="submit" id="submit">SUBMIT</button>
+
+  <span id="log_in_error_msg"></span>
+
+</form>
+
+
+<form id="sign_up" action="/sign_up" method="POST">
+
+  <p id="sign_up_heading">New Member Sign Up</p> 
+
+  <p>Email:
+    <input type="text" name="email" id="sign_up_email"> 
+  </p>
+
+  <p>Password:
+    <input type="password" name="password" id="sign_up_password">
+  </p>
+
+  <p>Username:
+    <input type="text" name="username" id="username"> 
+  </p>
+
+  <button type="submit" id="submit">SUBMIT</button>
+
+  <span id="sign_up_error_msg"></span>
+
+</form>
+
+<form style="display: none" action="/wall_request" method="GET" id="wall_request">
+  <input type="hidden" id="entrant" name="entrant"/>
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+
+  var form_log_in = $('#log_in');
+  var form_sign_up = $('#sign_up');
+
+  // Process a log-in attempt
+
+  $(form_log_in).submit(function(event) {
+
+    event.preventDefault();
+
+    var email = $('#log_in_email').val();     
+    var password = $('#log_in_password').val();
+    var credentials = $(form_log_in).serialize();
+
+    console.log(credentials);
+
+    if (email === "" && password === "") {
+      $('#log_in_error_msg').text('No email or password?').effect( "pulsate", {times:2}, 2000 );
+      $('#log_in_error_msg').fadeOut();
+    }
+
+    else if (email === "") {
+      $('#log_in_error_msg').text('No email?').effect( "pulsate", {times:2}, 2000 );
+      $('#log_in_error_msg').fadeOut();
+    }
+
+    else if (password === "") {
+      $('#log_in_error_msg').text('No password?').effect( "pulsate", {times:2}, 2000 );
+      $('#log_in_error_msg').fadeOut();
+    }
+
+      else {
+        // Submit the log-in form using AJAX
+        $.ajax({
+          type: 'GET',
+          url: $(form_log_in).attr('action'),
+          data: credentials,
+
+          success: function (result) {
+            console.log("This is the result sent back to ajax:" + result);
+
+            if( result[0] === "I" ) { 
+              $('#log_in_heading').text(result).effect( "pulsate", {times:2}, 2000 );
+              $('#log_in_email').val('');
+              $('#log_in_password').val('');
+              $('#log_in_error_msg').fadeOut();
+            } else {
+              $("#entrant").val(result);
+              $("#wall_request").submit();
+              }
+          }
+        });
+      }
+  });
+
+  // Process a sign-up attempt
+
+  $(form_sign_up).submit(function(event) {
+
+    event.preventDefault();
+
+    var email = $('#sign_up_email').val();
+    var pattern = /\S+@\S+\.\S+/;
+    var check = pattern.test(email);     
+    
+    var password = $('#sign_up_password').val();
+    var username = $('#username').val(); 
+    var credentials = $(form_sign_up).serialize();
+
+    console.log(credentials);
+
+    if (email === "" && password === "" && username === "") {$('#sign_up_error_msg').text('No email, password, or username?').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (email === "" && password === "") {$('#sign_up_error_msg').text('No email or password?').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (email === "" && username === "") {$('#sign_up_error_msg').text('No email or username?').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (password === "" && username === "") {$('#sign_up_error_msg').text('No password or username?').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (email === "") {$('#sign_up_error_msg').text('No email?').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (password === "") {$('#sign_up_error_msg').text('No password?').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (username === "") {$('#sign_up_error_msg').text('No username?').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (!check) {$('#sign_up_error_msg').text('Invalid email address.').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (password.length<5) {$('#sign_up_error_msg').text('Password length must be at least 5.').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (username.length<5) {$('#sign_up_error_msg').text('Username length must be at least 5.').effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+      else if (username == password) {$('#sign_up_error_msg').text("Username & Password can't be the same.").effect( "pulsate", {times:2}, 2000 ).fadeOut();}
+
+        else {
+
+        // Submit the sign-up form using AJAX
+        $.ajax({
+          type: 'POST',
+          url: $(form_sign_up).attr('action'),
+          data: credentials,
+
+          success: function (result) {
+            console.log("This is the result sent back to ajax:" + result);
+
+            if( result[0] === "I" ) { 
+              $('#sign_up_heading').text(result).effect( "pulsate", {times:2}, 2000 );
+              $('#sign_up_email').val('');
+              $('#sign_up_password').val('');
+              $('#username').val('');
+              $('#sign_up_error_msg').fadeOut();
+
+            } else {
+              $("#entrant").val(result);
+              $("#wall_request").submit(); 
+              }
+              
+          }
+        });
+      }
+  });
+
+});
+</script>
+
+</body>
+</html>

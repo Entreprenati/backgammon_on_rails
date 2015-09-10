@@ -1,0 +1,419 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*Style the board*/
+
+#boardWrapper {
+  width: 90vw;
+  height: 90vh;
+  position: absolute;
+    left: 50%;
+    top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #864218;
+}
+
+#topEdge {
+  width: 100%;
+  height: 2.5%;
+/*  background-image: url(images/leather.png);*/
+  background-color: #864218;
+}
+
+#leftEdge {
+  width: 5%;
+  height: 95%;
+  float: left;
+  background-color: #864218;
+  /*background-image: url(images/leather.png);*/
+}
+
+#homeWrapper{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#homeForWhite {
+  width: 3.8vw;
+  height: 46.5%;
+  position: absolute;
+    left: 49.5%;
+    top: 2%;
+  border-radius: 5%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: -webkit-radial-gradient(#ECEAD0, #864218);
+  background: radial-gradient(#ECEAD0, #864218);
+  border: .2vw #631F07 solid;
+/*  background-blend-mode: hard-light;*/
+}
+
+/*#homeForDice {
+  width: 3.8vw;
+  height: 8%;
+  position: absolute;
+    left: 50%;
+    top: 50%;
+  transform: translate(-50%, -50%);  
+  outline: 1px blue solid;
+}*/
+
+#homeForBlack {
+  width: 3.8vw;
+  height: 46.5%;
+  position: absolute;
+    left: 49.5%;
+    bottom: 2%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);   
+  border-radius: 5%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: -webkit-radial-gradient(#ECEAD0, #864218);
+  background: radial-gradient(#ECEAD0, #864218); 
+  border: .2vw #631F07 solid;  
+}
+
+#leftSide {
+  width: 42.5%;
+  height: 95%;
+  float: left;
+  background-color: yellow;
+}
+
+#midBar {
+  width: 5%;
+  height: 95%;
+  float: left;
+/*  background-image: url(images/leather.png);*/
+  background-color: #864218;
+}
+
+#barForBlack {
+  width: 3.8vw;
+  position: absolute;
+    left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.dice {
+  width: 3.8vw;
+  height: 8vw;
+  position: absolute;
+    left: 50%;
+    top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);  
+  z-index: 5000;
+}
+
+#die0, #die1 {
+  position: relative;;
+  height: 50%;
+  border-radius: 10%; 
+  background-color: white;  
+  z-index: 5000;
+}
+
+#die0 {
+  border-width: .2vw .2vw .2vw .2vw; 
+  border-color: black;
+  border-style: solid; 
+  margin-bottom: .4vw;
+}
+
+#die1 {
+  border-width: .2vw .2vw .2vw .2vw; 
+  border-color: black;
+  border-style: solid; 
+}
+
+#die0 span, #die1 span {
+  display: inline-block;
+  position: absolute;
+    left: 50%;
+    top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 4vw;
+}
+
+#barForWhite {
+  width: 3.8vw;
+  position: absolute;
+    left: 50%;
+    bottom: 2.5%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);   
+}
+
+#rightSide {
+  width: 42.5%;
+  height: 95%;
+  float: left;
+  background-color: yellow;
+}
+
+#rightEdge {
+  width: 5%;
+  height: 95%;
+  float: left;
+  background-color: #864218;
+/*background-image: url(images/leather.png);*/
+/*background-repeat: no-repeat;
+background-size: cover;*/
+}
+
+#bottomEdge {
+  width: 100%;
+  height: 2.5%;
+  clear: both;
+/*  background-image: url(images/leather.png);*/
+  background-color: #864218;
+}
+
+.quad {
+  position: relative;
+  width: 100%;
+  height: 50%;
+  background-color: yellow;
+  overflow: hidden;
+  text-align: center;
+}
+
+/*Create up pointing triangles*/
+
+.triUpWrap {
+  position: relative;
+  height: 100%;
+  width: 14%;
+  overflow: hidden;
+  display: inline-block;
+  text-align: initial;
+  z-index: 1000; 
+}
+
+.oddTri {
+  background-color: orange;
+}
+
+.evenTri {
+  background-color: brown;
+}
+
+
+.midTriUp {
+  display: inline-block;
+  width: 100%;
+  height: 95%;
+  position: absolute;
+    bottom: 0;
+  border-radius: 30% 30% 0 0; 
+}
+
+.leftTriUp, .rightTriUp {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background-color: yellow;
+  position: absolute;
+  z-index: 100;
+}
+
+.leftTriUp {
+ -webkit-transform: translateX(-100%) rotate(7deg);
+     -ms-transform: translateX(-100%) rotate(7deg);
+         transform: translateX(-100%) rotate(7deg);
+ -webkit-transform-origin: bottom right;
+     -ms-transform-origin: bottom right;
+         transform-origin: bottom right;
+}
+
+.rightTriUp {
+  -webkit-transform: translateX(100%) rotate(-7deg);
+      -ms-transform: translateX(100%) rotate(-7deg);
+          transform: translateX(100%) rotate(-7deg);
+  -webkit-transform-origin: bottom left;
+      -ms-transform-origin: bottom left;
+          transform-origin: bottom left;
+}
+
+/*Create down pointing triangles*/
+
+.triDownWrap {
+  position: relative;
+  height: 99%;
+  width: 14%;
+  overflow: hidden;
+  display: inline-block;
+  text-align: initial;  
+  z-index: 1000; 
+}
+
+.midTriDown {
+  display: inline-block;
+  width: 100%;
+  height: 95%;
+  position: absolute;
+    top: 0;
+  border-radius: 0 0 30% 30%;
+}
+
+.leftTriDown, .rightTriDown {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background-color: yellow;
+  position: absolute;
+  z-index: 100;
+}
+
+.leftTriDown {
+ -webkit-transform: translateX(-100%) rotate(-7deg);
+     -ms-transform: translateX(-100%) rotate(-7deg);
+         transform: translateX(-100%) rotate(-7deg);
+ -webkit-transform-origin: top right;
+     -ms-transform-origin: top right;
+         transform-origin: top right;
+}
+
+.rightTriDown {
+  -webkit-transform: translateX(100%) rotate(7deg);
+      -ms-transform: translateX(100%) rotate(7deg);
+          transform: translateX(100%) rotate(7deg);
+  -webkit-transform-origin: top left;
+      -ms-transform-origin: top left;
+          transform-origin: top left;
+}
+
+.positioner {
+  height: 100%;
+  width: 3.8vw;
+  background-color: rgba(0, 0, 0, 0.0);
+  z-index: 1000;
+}
+
+.positionerBottom {
+  position: absolute;
+    bottom: 0;
+    left: 50%;  
+  -webkit-transform: translateX(-50%);  
+      -ms-transform: translateX(-50%);  
+          transform: translateX(-50%);
+}
+
+.positionerBottom .chipHolder {
+  position: absolute;
+    bottom: 0;    
+  text-align: center;  
+}
+
+.positionerBottom .excessChipHolder {
+  position: absolute;
+    bottom: 1.95vw;
+  text-align: center; 
+  z-index: 100000;
+}
+
+.positionerTop {
+  position: absolute;
+    top: 0;
+    left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.positionerTop .chipHolder {
+  position: absolute;
+    top: 0;    
+  text-align: center;  
+}
+
+.positionerTop .excessChipHolder {
+  position: absolute;
+    top: 1.95vw;
+  text-align: center; 
+  z-index: 100000;
+}
+
+.chip {
+  height: 3.5vw;
+  width: 3.5vw;
+  border: .15vw solid black;
+  border-radius: 100%;
+  position: relative;
+  z-index: 1000;
+}
+
+.blackChip {
+  background-image: url(images/blackChip2.jpg);
+  background-size: cover;
+}
+
+.whiteChip {  
+  background-image: url(images/whiteChip2.jpg);
+  background-size: cover;
+}
+
+.grabbable {
+  cursor: -webkit-grab;
+  cursor: -ms-grab;
+}
+
+.grabbed {
+  cursor: -webkit-grabbing;  
+  cursor: -ms-grabbing;
+}
+
+.dropZone {
+  background-color: lightgreen;
+  box-shadow: 0 0 1vw lightgreen;
+}
+
+.disableChildEvents * {
+  pointer-events: none;
+}
+
+.dragged {
+  opacity: 0;
+}
+
+#rightEdgeMessage {
+  width: 4vw;
+  position: absolute;
+    top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);  
+}
+
+#rightEdgeMessage span {  
+  background-color: yellow;
+  padding: .1vw;
+  display: inline-block;
+  position: absolute;
+    left: 50%;
+    top: 50%;
+  -webkit-transform: translate(-35%, -50%);
+      -ms-transform: translate(-35%, -50%);
+          transform: translate(-35%, -50%);
+  font-weight: bold;
+  font-size: 2.5vw;
+  border: .2vw red solid;
+  border-radius: 10%;
+}

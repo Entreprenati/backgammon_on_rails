@@ -1,0 +1,325 @@
+* {
+  margin: 0;
+}
+
+body {
+  background-color: #F7E0B9;
+}
+
+
+/*@media all and (min-width: 700px) {
+.left_col {
+    float: left;
+    height: 100vw;
+    width: 15vw;
+    background-color: lightgray;
+  }
+}
+
+@media all and (min-width: 700px) {
+.right_col {
+    float: right;
+    height: 100vw;
+    width: 15vw;
+    background-color: lightgray;
+  }
+}*/
+
+#page_wrapper {
+  width: 90%;
+  margin-top: 2.5%;
+  position: absolute;
+    left: 50%;
+  -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+}
+
+/*@media all and (min-width: 700px) {
+#page_wrapper {
+  position: relative;
+  margin-top: 10px;
+  }
+}*/
+
+.avatar_div {
+  position: absolute;
+    right: 0;
+  text-align: center;
+}
+
+.avatar_thumb, .avatar_medium {
+  border: .2vw solid #F7E0B9;
+  background-color: white;
+  text-align: center;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  overflow: hidden;
+}
+
+.avatar_medium {
+  height: 160px;
+  width: 160px;
+}
+
+@media all and (min-width: 960px) {
+.avatar_div {
+  position: absolute;
+    right: 15%;
+  }
+}
+
+
+li {
+  display: inline-block;
+  color: green;
+  font-size: 2.2vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+  font-weight: bolder;
+}
+
+@media all and (min-width: 960px) {
+li {
+    font-size: 20px;
+  }
+}
+
+/*@media all and (max-width: 400px) {
+li {
+    font-size: 10px;
+  }
+}*/
+
+#foe_response_heading, #foe_requests_heading, #foe_games_heading, #no_pending_foe_requests_to_you_notice {
+  margin-bottom: 2.2vw;
+}
+
+@media all and (min-width: 960px) {
+#foe_response_heading, #foe_requests_heading, #foe_games_heading, #no_pending_foe_requests_to_you_notice {
+    margin-bottom: 18px;
+  }
+}
+
+#foe_request {
+  margin-top: 2.2vw;
+}
+
+@media all and (min-width: 960px) {
+#foe_request {
+    margin-top: 18px;
+  }
+}
+
+/*@media all and (max-width: 400px) {
+#foe_response_heading, #foe_requests_heading, #foe_games_heading, #no_pending_foe_requests_notice {
+    margin-bottom: 10px;
+  }
+}*/
+
+#wall_heading {
+  margin-bottom: 3vw;
+  text-align: center;
+  color: brown;
+  font-size: 4.8vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+  font-weight: bolder;
+  text-shadow: #000 0px 0px 1px, #000 0px 0px 1px, #000 0px 0px 1px,
+  #000 0px 0px 1px, #000 0px 0px 1px, #000 0px 0px 1px;
+  border: .12vw outset yellow;
+  border-radius: 10%;
+  padding: 1vw;
+  box-shadow: 0 .06vw 1.08vw;
+}
+
+/*@media all and (min-width: 700px) {
+#wall_heading {
+  text-align: left;
+  width: 60vw;
+  font-size: 36px;
+  margin-bottom: 27px;
+  position: relative;
+    left: 50%;
+  -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+      transform: translateX(-50);
+  }
+}*/
+
+h1 {
+  color: brown;
+  display: inline-block;
+  font-size: 3vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+  font-weight: bolder;
+}
+
+@media all and (min-width: 960px) {
+h1 {
+    font-size: 22.5px;
+  }
+}
+
+.accept, .reject, .challenge, .resume, .waiting, #logout_submit, #rankings_request_submit, #user_avatar, #avatar_upload, .browse {
+  display: inline-block;
+  width: 12vw;
+  text-align: center;
+  border: .24vw outset brown;
+  border-radius: 2.4vw;
+  margin: 0 0 2.4vw 2.4vw;
+  background-color: lightyellow;
+  padding: .24vw;
+  cursor: pointer;
+  box-shadow: 0 .06vw 1.08vw;   
+  font-size: 1.8vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+  text-shadow: .12px .12px .12px #000;
+  outline: none;
+}
+
+.browse{
+  margin-left: 0;
+}
+
+@media all and (min-width: 960px) {
+.accept, .reject, .challenge, .resume, .waiting, #logout_submit, #rankings_request_submit, #user_avatar, #avatar_upload {
+  width: 90px;
+  border: 1.8px outset brown;
+  border-radius: 18px;
+  margin: 0 0 18px 18px;
+  padding: 1.8px;
+  box-shadow: 0 .45px 8px;
+  font-size: 13.5px;
+  }
+}
+
+@media all and (min-width: 960px) {
+.browse {
+  width: 90px;
+  border: 1.8px outset brown;
+  border-radius: 18px;
+  margin: 0 0 18px 0;
+  padding: 1.8px;
+  box-shadow: 0 .45px 8px;
+  font-size: 13.5px;
+  }
+}
+
+.waiting {
+  cursor: auto;
+}
+
+.accept:hover, .reject:hover, .challenge:hover, .resume:hover, #logout_submit:hover, #rankings_request_submit:hover, #user_avatar:hover, #avatar_upload:hover, .browse:hover {
+  font-weight: bold;
+}
+
+.accept:active, .reject:active, .challenge:active, .resume:active, #logout_submit:active, #rankings_request_submit:active, #user_avatar:active, #avatar_upload:active, .browse:active {
+  position: relative;
+    top: .36vw;
+}
+
+#new_foe_request {
+  color: green;
+  font-size: 2.4vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+  font-weight: bolder;
+  margin: 2vw 0 0 2.4vw;
+}
+
+@media all and (min-width: 960px) {
+#new_foe_request {
+    font-size: 18px;
+    margin: 18px 0 0 18px;
+  }
+}
+
+input {
+  border: .24vw outset brown;
+  text-align: center;
+  background-color: lightyellow;
+  padding: .24vw;
+  cursor: pointer;
+  box-shadow: 0 .06vw 1.08vw;   
+  font-size: 2.2vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+  margin-right: .2vw;
+  width: 20vw;
+}
+
+@media all and (min-width: 960px) {
+input {
+  border: 1.8px outset brown;
+  padding: 13.5px;
+  padding: 1.8px;
+  box-shadow: 0 .45px 8px;   
+  font-size: 18px;
+  margin-right: 1.8px;
+  width: 180px;
+  }
+}
+
+input:focus {
+ box-shadow: 0 0 6px 1.2px black;
+}
+
+#submit {
+  border: .24vw outset brown;
+  background-color: lightyellow;
+  padding: .3vw .96vw .24vw .24vw;
+  cursor: pointer;
+  box-shadow: 0 .05vw .9vw;   
+  font-size: 1.8vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+  text-shadow: .12px .12px .12px #000;
+  button:focus {outline:0;};
+} 
+
+@media all and (min-width: 960px) {
+#submit {
+  border: 1.8px outset brown;
+  padding: 2.25px 7.2px 1.8px 1.8px;
+  box-shadow: 0 .45px 8px;   
+  font-size: 13.5px;
+  text-shadow: .09px .09px .09px #000;
+  }
+}
+
+#submit:hover {
+  font-weight: bold;
+}
+
+#submit:active {
+  position: relative;
+  top: .36vw;
+}
+
+#foe_request_error_msg {
+  font-size: 2.2vw;
+  font-family: Comic Sans MS;
+  font-style: oblique;
+}
+
+@media all and (min-width: 960px) {
+#foe_request_error_msg {
+  font-size: 18px;
+  }
+}
+
+#submit_box {
+  display: inline-block;
+  margin: 1vw 0 3vw 2.4vw;
+}
+
+@media all and (min-width: 960px) {
+#submit_box {
+  margin: 18px 0 0 18px;
+  }
+}
+

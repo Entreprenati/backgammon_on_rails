@@ -1,0 +1,98 @@
+class Foe < ActiveRecord::Base
+
+  belongs_to :foe_requester, :class_name => 'User', :foreign_key => 'foe_requester_id'
+  
+  belongs_to :foe_responder, :class_name => 'User', :foreign_key => 'foe_responder_id'
+  
+end
+
+class Game < ActiveRecord::Base
+
+  belongs_to :black_player, :class_name => 'User', :foreign_key => 'black_player_id'
+  
+  belongs_to :white_player, :class_name => 'User', :foreign_key => 'white_player_id'
+
+end
+
+class User < ActiveRecord::Base
+
+  has_many :black_games, :class_name => 'Game', :foreign_key => 'black_player_id', dependent: :destroy
+  
+  has_many :white_games, :class_name => 'Game', :foreign_key => 'white_player_id', dependent: :destroy
+
+  has_many :foe_requesters, :class_name => 'Foe', :foreign_key => 'foe_requester_id', dependent: :destroy
+  
+  has_many :foe_responders, :class_name => 'Foe', :foreign_key => 'foe_responders_id', dependent: :destroy
+
+  has_attached_file :avatar, 
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename", 
+    :styles => { :medium => "200x200#", :thumb => "100x100#" },
+    :default_url => "/images/:style/miniMe.jpg"
+
+    do_not_validate_attachment_file_type :avatar
+    # validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/]
+
+    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+end
+
+      t.string  :email
+      t.string  :password
+      t.string  :username
+      t.integer :logged_in
+      t.time    :last_activity
+      t.integer :num_games
+      t.integer :num_wins
+
+      t.integer :foe_requester_id
+      t.integer :foe_responder_id
+      t.integer :status
+
+
+      t.integer :white_player_id
+      t.integer :black_player_id
+      t.integer :turn
+      t.integer :turn_status
+      t.integer :chip0_position
+      t.integer :chip1_position
+      t.integer :chip2_position
+      t.integer :chip3_position
+      t.integer :chip4_position
+      t.integer :chip5_position
+      t.integer :chip6_position
+      t.integer :chip7_position  
+      t.integer :chip8_position
+      t.integer :chip9_position
+      t.integer :chip10_position
+      t.integer :chip11_position
+      t.integer :chip12_position
+      t.integer :chip13_position
+      t.integer :chip14_position
+      t.integer :chip15_position 
+      t.integer :chip16_position
+      t.integer :chip17_position
+      t.integer :chip18_position
+      t.integer :chip19_position
+      t.integer :chip20_position
+      t.integer :chip21_position
+      t.integer :chip22_position
+      t.integer :chip23_position  
+      t.integer :chip24_position
+      t.integer :chip25_position
+      t.integer :chip26_position
+      t.integer :chip27_position
+      t.integer :chip28_position
+      t.integer :chip29_position
+
+class AddAttachmentAvatarToUsers < ActiveRecord::Migration
+  def self.up
+    change_table :users do |t|
+      t.attachment :avatar
+    end
+  end
+
+  def self.down
+    remove_attachment :users, :avatar
+  end
+end
