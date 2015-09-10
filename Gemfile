@@ -11,7 +11,7 @@ gem 'sdoc',         '0.4.0', group: :doc
 gem 'tzinfo-data'
 
 gem "paperclip", '4.2'
-# gem 'aws-sdk'
+gem 'aws-sdk'
 
 group :development, :test, :production do
   gem 'pg'
@@ -24,6 +24,6 @@ group :test do
 end
 
 group :production do
-  gem 'rails_12factor', group: :production
+  gem 'rails_12factor'
   gem 'aws-sdk'
 end
