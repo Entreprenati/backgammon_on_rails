@@ -4,6 +4,9 @@ class RankingsController < ApplicationController
 
     records = User.all
     puts "Current username games won: #{records.find_by(id: session[:current_user_id]).num_wins}"
+
+    User.update(session[:current_user_id], last_activity: Time.now)
+
     @rankings_hash = {}
     records.each do |x|
       if ( (x.num_games == 0) || (x.num_wins == 0) )

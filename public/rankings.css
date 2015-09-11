@@ -74,6 +74,7 @@ th {
   font-family: Comic Sans MS;
   font-style: oblique;
   text-shadow: .12px .12px .12px #000;
+  outline: none;
 }
 
 @media all and (min-width: 960px) {

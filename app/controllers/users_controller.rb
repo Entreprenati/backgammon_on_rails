@@ -48,6 +48,8 @@ class UsersController < ApplicationController
     @user = User.find(session[:current_user_id])
     @user.update_attributes(user_params)
 
+    User.update(session[:current_user_id], last_activity: Time.now)
+
     return redirect_to '/wall_request'
 
   end
