@@ -462,7 +462,7 @@ function old_computer_game_white_goes () {
   whiteTurn = true;
 
   $(window).load(function() {
-    confirm("Welcome back. You last left off in the middle of a game when it was the computer's turn. So click to resume that game (and then the computer will go).");
+    confirm("It's the computer's turn (click to resume & the computer will go).");
     setTimeout(function() { 
       computerMove();
     }, 1000);
@@ -476,7 +476,7 @@ function old_computer_game_black_goes () {
   whiteTurn = false;
 
   $(window).load(function() {
-    confirm("Welcome back. You last left off in the middle of a game when it was your turn. So click to resume that game (you're the black chips).");
+    confirm("It's your turn, click to resume (you're the black chips).");
     setTimeout(function() { 
       humanBlackMove();
     }, 1000);
@@ -504,7 +504,7 @@ function old_human_game_white_goes () {
   whiteTurn = true;
 
   $(window).load(function() {
-    confirm("Welcome back. You last left off in the middle of a game when it was your turn. So click to resume that game (you're the white chips).");
+    confirm("It's your turn, click to resume (you're the white chips).");
     setTimeout(function() { 
       humanWhiteMove();
     }, 1000);
@@ -518,7 +518,7 @@ function old_human_game_black_goes () {
   whiteTurn = false;
 
   $(window).load(function() {
-    confirm("Welcome back. You last left off in the middle of a game when it was your turn. So click to resume that game (you're the black chips).");
+    confirm("It's your turn, click to resume (you're the black chips).");
     setTimeout(function() { 
       humanBlackMove();
     }, 1000);
@@ -547,7 +547,7 @@ function computerMove() {
 function humanBlackMove() {
 
   if (firstBlackMove) {
-    confirm("Click dice to roll, then drag & drop your moves (honor system), then hit 'DONE'");
+    confirm("Click dice to roll, then drag & drop your moves, then hit 'DONE'");
     firstBlackMove = false; 
   }
 
@@ -565,7 +565,7 @@ $('.dice').unbind().click(
 function humanWhiteMove() {
 
   if (firstWhiteMove) {
-    confirm("Click dice to roll, then drag & drop your moves (honor system), then hit 'DONE'");
+    confirm("Click dice to roll, then drag & drop your moves, then hit 'DONE'");
     firstWhiteMove = false; 
   }
 
