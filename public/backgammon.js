@@ -447,7 +447,7 @@ function new_computer_game () {
   whiteTurn = true;
 
   $(window).load(function() {
-    confirm('Click to start the game (then computer will go first).');
+    confirm('Click to start game (then computer goes first).');
     setTimeout(function() { 
       computerMove();
     }, 1000);
@@ -462,7 +462,7 @@ function old_computer_game_white_goes () {
   whiteTurn = true;
 
   $(window).load(function() {
-    confirm("It's the computer's turn (click to resume & the computer will go).");
+    confirm("It's the computer's turn (click to resume & computer will go).");
     setTimeout(function() { 
       computerMove();
     }, 1000);
@@ -490,7 +490,8 @@ function new_human_game () {
   whiteTurn = false;
 
   $(window).load(function() {
-    confirm("Click to start the game, then you'll go first (you're the black chips).");
+    confirm("Click to start game, then you go first (you're the black chips).");
+    confirm("Click dice to roll, then drag & drop your moves, then hit 'DONE'");
     setTimeout(function() { 
       humanBlackMove();
     }, 1000);
@@ -546,8 +547,8 @@ function computerMove() {
 
 function humanBlackMove() {
 
-  if (firstBlackMove) {
-    confirm("Click dice to roll, then drag & drop your moves, then hit 'DONE'");
+  if (firstBlackMove && computer_game) {
+    confirm("Click dice to roll, then drag & drop your move, then hit 'DONE'");
     firstBlackMove = false; 
   }
 
@@ -564,10 +565,10 @@ $('.dice').unbind().click(
 
 function humanWhiteMove() {
 
-  if (firstWhiteMove) {
-    confirm("Click dice to roll, then drag & drop your moves, then hit 'DONE'");
-    firstWhiteMove = false; 
-  }
+  // if (firstWhiteMove) {
+  //   confirm("Click dice to roll, then drag & drop your move, then hit 'DONE'");
+  //   firstWhiteMove = false; 
+  // }
 
 $('.dice').unbind().click(
   function() {
